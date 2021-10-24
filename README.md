@@ -1,9 +1,20 @@
-# grizz_connect_csi4999
+# GrizzConnect_csi4999
 
 A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Registration
 
+Login
+
+Profile 
+
+Memes
+
+Marketplace
+
+Covid-19 Form
+
+Database: Firebase
 
