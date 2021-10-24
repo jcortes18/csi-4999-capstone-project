@@ -1,4 +1,4 @@
-# GrizzConnect_csi4999
+# CSI4999: GrizzConnect 
 
 A new Flutter project.
 
