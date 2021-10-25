@@ -45,7 +45,6 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: DotNavigationBar(
-            //margin: const EdgeInsets.only(left: 10, right: 10),
             backgroundColor: Colors.black,
             dotIndicatorColor: Colors.white,
             unselectedItemColor: Colors.grey[300],
