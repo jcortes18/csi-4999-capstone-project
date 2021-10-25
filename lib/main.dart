@@ -43,32 +43,32 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         body: _pageOptions[selectedPage],
         bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: DotNavigationBar(
-          margin: const EdgeInsets.only(left: 10, right: 10),
-          backgroundColor: Colors.black,
-          dotIndicatorColor: Colors.white,
-          unselectedItemColor: Colors.grey[300],
-          selectedItemColor: Colors.blue,
-          items: [
-            DotNavigationBarItem(
-                icon: Icon(Icons.home),
-            ),
-            DotNavigationBarItem(
-                icon: Icon(Icons.sell),
-            ),
-            DotNavigationBarItem(
-                icon: Icon(Icons.account_circle),
-            ),
-          ],
+          padding: const EdgeInsets.only(bottom: 20),
+          child: DotNavigationBar(
+            //margin: const EdgeInsets.only(left: 10, right: 10),
+            backgroundColor: Colors.black,
+            dotIndicatorColor: Colors.white,
+            unselectedItemColor: Colors.grey[300],
+            selectedItemColor: Colors.blue,
+            items: [
+              DotNavigationBarItem(
+                  icon: Icon(Icons.home),
+              ),
+              DotNavigationBarItem(
+                  icon: Icon(Icons.sell),
+              ),
+              DotNavigationBarItem(
+                  icon: Icon(Icons.account_circle),
+              ),
+            ],
 
-          currentIndex: selectedPage,
-          onTap: (index){
-            setState(() {
-              selectedPage = index;
-            });
-          },
-        )
+            currentIndex: selectedPage,
+            onTap: (index){
+              setState(() {
+                selectedPage = index;
+              });
+            },
+          )
         )
     );
   }
