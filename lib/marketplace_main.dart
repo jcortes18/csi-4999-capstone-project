@@ -5,13 +5,19 @@ import 'package:flutter/material.dart';
 class MarketplaceTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'GrizzConnect Marketplace',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.grey,
+    return Scaffold(
+      body: Row(
+        
       ),
-      home: const Center(child: Text('marketplace')),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.amber,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
+
