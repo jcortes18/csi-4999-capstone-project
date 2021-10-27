@@ -33,14 +33,15 @@ class _HomePageState extends State<HomePage> {
   int selectedPage = 0;
 
   final _pageOptions = [
-    Homescreen(),
     MarketplaceTab(),
+    Homescreen(), // update to covid health form page
     ProfileTab()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         body: _pageOptions[selectedPage],
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.only(bottom: 20),
@@ -51,13 +52,13 @@ class _HomePageState extends State<HomePage> {
             selectedItemColor: Colors.blue,
             items: [
               DotNavigationBarItem(
-                  icon: Icon(Icons.home),
+                  icon: const Icon(Icons.sell),
               ),
               DotNavigationBarItem(
-                  icon: Icon(Icons.sell),
+                  icon: const Icon(Icons.health_and_safety),
               ),
               DotNavigationBarItem(
-                  icon: Icon(Icons.account_circle),
+                  icon: const Icon(Icons.account_circle),
               ),
             ],
 

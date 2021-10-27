@@ -9,7 +9,7 @@ class MarketplaceTab extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'GrizzConnect Marketplace',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.green,
+        scaffoldBackgroundColor: Colors.grey,
       ),
       home: const Center(child: Text('marketplace')),
     );
