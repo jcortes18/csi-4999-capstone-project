@@ -6,11 +6,6 @@ class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'GrizzConnect Profile',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.green,
-      ),
       home: const Center(child: Text('profile')),
     );
   }
