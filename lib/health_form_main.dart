@@ -1,74 +1,243 @@
-import 'package:flutter/cupertino.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
+import 'quiz_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    initialRoute: '/',
+    routes: {
+      '/': (context) => formHomePage(),
+      '/second': (context) => Quiz(),
+    },
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
+class formHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'Health Form';
-    return MaterialApp(
-      title: appTitle,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.teal,
+        title: Text(
+          'Health Questionnaire',
+          style: TextStyle(
+            fontSize: 35.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(appTitle)
-      ),
-        body: const MyForm(),
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage('images/bgImg.jpg'),
+              colorFilter: ColorFilter.mode(
+                Colors.grey.withOpacity(0.5),
+                BlendMode.dstATop,
+              ),
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text(
+                'Check and see if its safe for you to meet with others',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 40.0,
+                  color: Colors.brown.shade900,
+                ),
+              ),
+              RaisedButton(
+                padding: EdgeInsets.all(15.0),
+                elevation: 5.0,
+                color: Colors.lightGreen.shade200,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/second');
+                },
+                child: Text(
+                  'Start Questionnaire',
+                  style: TextStyle(fontSize: 40.0, color: Colors.red),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
 }
 
-class MyForm extends StatefulWidget {
-  const MyForm({Key? key}) : super(key: key);
-
+class Quiz extends StatelessWidget {
   @override
-  MyFormState createState(){
-    return MyFormState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey.shade900,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          child: QuizPage(),
+        ),
+      ),
+    );
   }
 }
 
-class MyFormState extends State<MyForm> {
-  final _formkey = GlobalKey<FormState>();
+class QuizPage extends StatefulWidget {
+  @override
+  _QuizPageState createState() => _QuizPageState();
+}
+
+class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+  int countCorrectAns = 0;
+  int totalNoOfQuestions = quizBrain.getCountOfQuestions();
+
+  void checkAnswer(BuildContext context, bool userAns) {
+    setState(() {
+      if (quizBrain.getAnswer() == userAns) {
+        scoreKeeper.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+        countCorrectAns++;
+      } else {
+        scoreKeeper.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+
+      if (quizBrain.isFinished()) {
+        if (countCorrectAns >= totalNoOfQuestions / 3) {
+          Alert(
+            closeFunction: () => Navigator.pop(context),
+            context: context,
+            type: AlertType.success,
+            title: "Hurray!",
+            desc:
+            "You answered $countCorrectAns/$totalNoOfQuestions questions correctly. It is safe for you to meet with others",
+            buttons: [
+              DialogButton(
+                child: Text(
+                  "Exit the quiz",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                width: 200,
+              )
+            ],
+          ).show();
+        } else {
+          Alert(
+            closeFunction: () => Navigator.pop(context),
+            context: context,
+            type: AlertType.error,
+            title: "Oh No!",
+            desc:
+            "You answered $countCorrectAns/$totalNoOfQuestions questions correctly. Please consult a Physician about possible COVID exposure.",
+            buttons: [
+              DialogButton(
+                child: Text(
+                  "Take Questionnaire Again",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                width: 200,
+              )
+            ],
+          ).show();
+        }
+
+        quizBrain.reset();
+        scoreKeeper.clear();
+        countCorrectAns = 0;
+      } else {
+        quizBrain.nextQuestion();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    return Form(
-      key: _formkey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextFormField(
-            validator: (value){
-              if(value == null || value.isEmpty){
-                return 'Please enter Your Name';
-              }
-              return null;
-            },
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Expanded(
+          flex: 5,
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Center(
+              child: Text(
+                quizBrain.getQuestion(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
-          Padding(padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: ElevatedButton(
-            onPressed: (){
-              if(_formkey.currentState!.validate()){
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Processing Data')),
-                );
-              }
-            },
-            child: const Text('Submit'),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: FlatButton(
+              textColor: Colors.white,
+              color: Colors.green,
+              child: Text(
+                'Yes',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+              onPressed: () {
+                checkAnswer(context, true);
+              },
+            ),
           ),
-          )
-        ],
-      ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: FlatButton(
+              color: Colors.red,
+              child: Text(
+                'No',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                checkAnswer(context, false);
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: Row(
+            children: scoreKeeper,
+          ),
+        )
+      ],
     );
-
   }
 }
