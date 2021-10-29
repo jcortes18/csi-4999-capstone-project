@@ -118,7 +118,7 @@ class _QuizPageState extends State<QuizPage> {
       }
 
       if (quizBrain.isFinished()) {
-        if (countCorrectAns >= totalNoOfQuestions / 3) {
+        if (countCorrectAns == totalNoOfQuestions) {
           Alert(
             closeFunction: () => Navigator.pop(context),
             context: context,
@@ -129,8 +129,8 @@ class _QuizPageState extends State<QuizPage> {
             buttons: [
               DialogButton(
                 child: Text(
-                  "Exit the quiz",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  "Exit the questionnaire",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -151,8 +151,8 @@ class _QuizPageState extends State<QuizPage> {
             buttons: [
               DialogButton(
                 child: Text(
-                  "Take Questionnaire Again",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  "Exit the Questionnaire",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
