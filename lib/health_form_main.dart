@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -52,6 +54,34 @@ class formHomePage extends StatelessWidget {
                   fontSize: 40.0,
                   color: Colors.brown.shade900,
                 ),
+              ),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      style : TextStyle(
+                        fontSize: 30.0,
+                        color:Colors.black,
+
+                    ),
+                    text:"To contact Graham Health Center"),
+                    TextSpan(
+                        style : TextStyle(
+                          fontSize: 30.0,
+                          color:Colors.blue,
+
+                        ),
+                        text:" click here",
+                      recognizer: TapGestureRecognizer()..onTap = (){
+                          var url = "https://www.oakland.edu/ghc/home";
+                          launch(url);
+                          }
+                    ),
+
+                  ]
+
+                )
               ),
               RaisedButton(
                 padding: EdgeInsets.all(15.0),
