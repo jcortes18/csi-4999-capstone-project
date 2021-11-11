@@ -177,7 +177,7 @@ class _QuizPageState extends State<QuizPage> {
             type: AlertType.error,
             title: "Oh No!",
             desc:
-            "You answered $countCorrectAns/$totalNoOfQuestions questions correctly. Please consult a Physician about possible COVID exposure.",
+            "You answered $countCorrectAns/$totalNoOfQuestions questions correctly. Please consult a Physician or GHS about possible COVID exposure.",
             buttons: [
               DialogButton(
                 child: Text(
