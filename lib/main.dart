@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import 'homescreen.dart';
+import 'itempage_main.dart';
 import 'marketplace_main.dart';
 import 'profile.dart';
 
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   final _pageOptions = [
     MarketplaceTab(),
     //covid(), // update to covid health form page
-    //settings() //add settings page
+    ItemPageHome() //add settings page
   ];
 
   @override
@@ -45,8 +46,7 @@ class _HomePageState extends State<HomePage> {
 
         body: Stack(
           fit: StackFit.expand,
-          children: [
-            _pageOptions[selectedPage],
+          children: [_pageOptions[selectedPage],
             buildFloatingSearchBar(),
           ]
         ),
