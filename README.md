@@ -1,6 +1,8 @@
-# CSI4999: GrizzConnect 
+# OLD - CSI4999: GrizzConnect 
 
-A new Flutter project.
+CREATED A NEW REPO TO INTEGRATE THE REGISTRATION, LOGIN, AND CONNECTION TO FIREBASE DB. 
+
+NEW REPO: https://github.com/jcortes18/grizz-connect
 
 ## Getting Started
 
